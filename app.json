@@ -1,0 +1,25 @@
+{
+  "id": "e4295d8d-0ba0-4b00-80a9-f89e15aa248e",
+  "name": "Test 1",
+  "publisher": "N. Lindvald",
+  "brief": "",
+  "description": "",
+  "version": "1.0.0.0",
+  "compatibilityId": "1.0.0.0",
+  "privacyStatement": "",
+  "EULA": "",
+  "help": "",
+  "url": "",
+  "logo": "",
+  "capabilities": [],
+  "dependencies": [],
+  "screenshots": [],
+  "platform": "11.0.0.0",
+  "application": "11.0.0.0",
+  "target": "Internal",
+  "showMyCode": true,
+  "idRange": {
+    "from": 123456700,
+    "to": 123456799
+  }
+}
