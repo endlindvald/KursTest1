@@ -89,7 +89,4 @@ page 123456701 "CSD Seminar Card"
             }
         }
     }
-
-    var
-        myInt: Integer;
 }

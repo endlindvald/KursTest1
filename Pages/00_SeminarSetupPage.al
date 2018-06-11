@@ -2,7 +2,7 @@ page 123456700 "CSD Seminar Setup"
 {
     PageType = Card;
     SourceTable = "CSD Seminar Setup";
-    //Caption = 'Seminar Setup';
+    Caption = 'Seminar Setup';
     InsertAllowed = false;
     DeleteAllowed = false;
     UsageCategory = Administration;
