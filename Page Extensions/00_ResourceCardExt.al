@@ -1,4 +1,4 @@
-pageextension 123456701 "CSD ResourceCardExt" extends "Resource Card"
+pageextension 123456700 "CSD ResourceCardExt" extends "Resource Card"
 // CSD1.00
 {
     layout
@@ -18,6 +18,7 @@ pageextension 123456701 "CSD ResourceCardExt" extends "Resource Card"
         {
             group("CSD Room")
             {
+                Caption = 'Room';
                 field("CSD Maximum Participants"; "CSD Maximum Participants")
                 {
                     Visible = ShowMaxField;

@@ -1,6 +1,6 @@
 tableextension 123456700 "CSD ResourceExt" extends Resource
+// CSD1.00 - 2018-06-11
 {
-    //CSD1.00 - 2018-06-11
     fields
     {
         modify("Profit %")
