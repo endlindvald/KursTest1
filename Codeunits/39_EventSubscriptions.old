@@ -1,0 +1,57 @@
+codeunit 123456739 EventSubscriptions
+// CSD1.00 - 2018-01-01 - D. E. Veloper
+// Chapter 7 - Lab 2-1
+{
+    [EventSubscriber(ObjectType::Codeunit, 212, 'OnBeforeResLedgEntryInsert', '', true, true)]
+    local procedure PostResJnlLineOnBeforeResLedgEntryInsert(var ResLedgerEntry: Record "Res. Ledger Entry"; ResJournalLine: Record "Res. Journal Line");
+    var
+        c: Codeunit "Res. Jnl.-Post Line";
+    begin
+        ResLedgerEntry."CSD Seminar No." := ResJournalLine."CSD Seminar No.";
+        ResLedgerEntry."CSD Seminar Registration No." := ResJournalLine."CSD Seminar Registration No.";
+    end;
+
+    [EventSubscriber(ObjectType::Page, 344, 'OnAfterNavigateFindRecords', '', true, true)]
+    local procedure ExtendNavigateOnAfterNavigateFindRecords(var DocumentEntry: Record “Document Entry”; DocNoFilter: Text; PostingDateFilter: Text);
+    var
+        SeminarLedgerfEntry: Record "Seminar Ledger Entry";
+        PostedSeminarRegHeader: Record "Posted Seminar Reg. Header";
+    begin
+        IF SeminarLedgerfEntry.READPERMISSION THEN BEGIN
+            SeminarLedgerfEntry.RESET;
+            SeminarLedgerfEntry.SETCURRENTKEY("Document No.", "Posting Date");
+            SeminarLedgerfEntry.SETFILTER("Document No.", DocNoFilter);
+            SeminarLedgerfEntry.SETFILTER("Posting Date", PostingDateFilter);
+            InsertIntoDocEntry(DocumentEntry,
+            DATABASE::"Warranty Ledger Entry", 0, SeminarLedgerfEntry.TABLECAPTION, SeminarLedgerfEntry.COUNT);
+        END;
+
+        IF PostedSeminarRegHeader.READPERMISSION THEN BEGIN
+            PostedSeminarRegHeader.RESET;
+            PostedSeminarRegHeader.SETCURRENTKEY("Document No.", "Posting Date");
+            PostedSeminarRegHeader.SETFILTER("Document No.", DocNoFilter);
+            PostedSeminarRegHeader.SETFILTER("Posting Date", PostingDateFilter);
+            InsertIntoDocEntry(DocumentEntry,
+            DATABASE::"Warranty Ledger Entry", 0, PostedSeminarRegHeader.TABLECAPTION, PostedSeminarRegHeader.COUNT);
+        END;
+
+    end;
+
+    local procedure InsertIntoDocEntry(var DocumentEntry: Record “Document Entry”; DocTableID: Integer; DocType: Integer; DocTableName: Text[1024]; DocNoOfRecords: Integer);
+    begin
+        with DocumentEntry do
+        begin
+
+            IF DocNoOfRecords = 0 THEN
+                EXIT;
+            INIT;
+            "Entry No." := "Entry No." + 1;
+            "Table ID" := DocTableID;
+            "Document Type" := DocType;
+            "Table Name" := COPYSTR(DocTableName, 1, MAXSTRLEN("Table Name"));
+            "No. of Records" := DocNoOfRecords;
+            INSERT;
+        end;
+
+    end;
+}
